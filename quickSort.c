@@ -11,30 +11,23 @@ void swap(int *a, int *b){
     *b = tmp;
 }
 
-void quickSort (int start, int end){
-    if(start >= end){
-        return;
-    }
-    int key = start; int i = start + 1; int j = end; 
-    int tmp;
-    while(i <= j){
-        while(i <= end && a[i] <= a[key]) i++;
-        while(j >= start && a[j] >= a[key]) j--;
-        if(i > j) swap(&a[key], &a[j]);
-        else swap(&a[i], &a[j]);
-        quickSort(start, j - 1);
-        quickSort(a[j+1], end);
-    }
-}
-
 int main(void){
-    int n, min, index;
     printf("How many elements: ");
     scanf("%d", &n);
     for(int i = 0; i < n ; i++){
         scanf("%i", &a[i]);
     }
-    quickSort(0, n-1);
+	
+    //들어갈 숫자를 선택하는 루프
+    for (int i = 0; i < n; i++){
+        int j = i;
+        //들어갈 위치를 선택하는 루프
+        //j < n-1 조건을 통해서 a[n-1]과 a[n](데이터에 포함되지 않는 값)이 swap되는 것을 막아줌
+        while(j >= 0 && a[j] > a[j+1] && j < n - 1){
+            swap(&a[j], &a[j+1]);
+            j--;
+        }
+    }
 
     for (int l = 0; l < n ; l++){
         printf("%i", a[l]);
